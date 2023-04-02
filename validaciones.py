@@ -33,6 +33,7 @@ def validarCaracteres(columna: dict):
     
     return True
     
+    
 """Validar que en caso de haber datos en las filas inferiores
 , el campo de numero de atractores no sea nulo"""
 def validarNaN(columna: dict):
@@ -54,7 +55,7 @@ def validarNaN(columna: dict):
         return True
         
 
-columna = leerColumna("../04. Forumularios digitalizados grupo 4.xlsx", 9, 9)
+columna = leerColumna("../04. Forumularios digitalizados grupo 4.xlsx", 9, 8)
 
 print(validarSuma(columna))
 
