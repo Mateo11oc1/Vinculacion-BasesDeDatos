@@ -61,3 +61,5 @@ print(validarSuma(columna))
 print(validarCaracteres(columna))
 
 print(validarNaN(columna))
+
+#hola pajaro con cola :)
