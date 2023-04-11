@@ -1,11 +1,11 @@
-
+import openpyxl
 import pandas
 import math
 
 """Devuelve la columna como un diccionario de acuerdo a los parametros"""
-def leerColumna(archivo: str, hoja: int, columna: int):
-    archivo = pandas.read_excel(archivo, sheet_name = hoja)
-    lista = archivo.iloc[7:,columna].tolist()
+def leerColumna(leido,  columna: int):
+
+    lista = leido.iloc[7:,columna].tolist()
     #[7:,columna] nos da la celda desde la fila 7 hasta la ultima fila,  columna 9 y le hace lista
     columna = {"atractor": lista[0], "numAtractores": lista[2], "tamanio": lista[3:6], "jornada": lista[6:11], "dias": lista[12:22]}
     return columna
@@ -119,19 +119,35 @@ def corregirAtractoresNulos(columna: dict):
         for i in columna["tamanio"]:
             pass
 
+leido=pandas.read_excel("../04. Forumularios digitalizados grupo 4.xlsx", sheet_name=9)
+columna = leerColumna(leido, 8)
 
-columna = leerColumna("../04. Forumularios digitalizados grupo 4.xlsx", 9, 8)
+#se leera el excel con una libreria que permite escribir en el archivo .xlsx
+workbook=openpyxl.load_workbook("../04. Forumularios digitalizados grupo 4.xlsx")
 
-
-print(validarSuma(columna))
+"""print(validarSuma(columna))
 print(validarCaracteres(columna))
 print(validarNaN(columna))
-
 print(validarExtremos(columna))
 print(validarSumaJornada(columna))
 print(validarSumaDias(columna))
-
-
-
 print(validarJornadaNoSobrepaseAtractores(columna))
-print(validarDiasNoSobrepaseAtractores(columna))
+print(validarDiasNoSobrepaseAtractores(columna))"""
+
+"""metodo que sirve si es que se indica que hay 3 atractores de un tipo x grandes y 1 mediano y no se indica el 
+numero de atractores totales, entonces se modifica el archivo desde el codigo en numero de atractores"""
+def modificarCampoNAtractores(columna: dict):
+    #si el numero de atractores es nulo
+
+    if math.isnan(columna["numAtractores"]):
+        hoja=workbook.worksheets[9]
+        print(sum(x for x in columna['tamanio'] if not math.isnan(x)))
+        hoja.cell(row=1, column=9).value=sum(x for x in columna['tamanio'] if not math.isnan(x))
+        workbook.save("../04. Forumularios digitalizados grupo 4.xlsx")
+    else:
+        return True
+
+
+modificarCampoNAtractores(columna)
+
+
