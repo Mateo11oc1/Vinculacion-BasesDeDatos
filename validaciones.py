@@ -39,6 +39,26 @@ def validarSumaJornada(columna:dict):
     else:
         return True
 
+"""Validar que uno o varios de los datos de la jornada no sobrepase el numero de atractores"""
+"""No se valida que esto se cumpla con la suma de los datos de la jornada debido a que se puede tener un atractor
+que sea matutino y nocturno a la vez"""
+def validarJornadaNoSobrepaseAtractores(columna:dict):
+    for i in range(len(columna['jornada'])):
+        if columna["numAtractores"] < columna['jornada'][i]:
+            return False
+
+    return True
+
+
+"""Validar que uno o varios de los datos de los días de atención no sobrepasen el numero de atractores"""
+"""No se valida que esto se cumpla con la suma de los datos de los días de atención debido a que se puede tener un atractor
+que atienda lunes y martes a la vez"""
+def validarDiasNoSobrepaseAtractores(columna:dict):
+    for i in range(len(columna['dias'])):
+        if columna["numAtractores"] < columna['dias'][i]:
+            return False
+
+    return True
 
 """Validar que solo sean numero y no letras"""
 def validarCaracteres(columna: dict):
@@ -102,3 +122,7 @@ print(validarExtremos(columna))
 print(validarSumaJornada(columna))
 print(validarSumaDias(columna))
 
+
+
+print(validarJornadaNoSobrepaseAtractores(columna))
+print(validarDiasNoSobrepaseAtractores(columna))
