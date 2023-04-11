@@ -58,12 +58,21 @@ def validarNaN(columna: dict):
                 else: 
                     return True
 
+
     #si el numero de atractores es nulo y el detalle no esta vacio
     if math.isnan(columna["numAtractores"]) and not validarDetalle(columna):
         return False
     else:
         return True
-        
+    
+
+"""En caso de que el numero de atractores sea nulo, y hayan datos en las columnas de abajo
+corregir sumando los datos del apartado tamanio"""
+def corregirAtractoresNulos(columna: dict):
+    def verificarDatos(columna: dict):
+        for i in columna["tamanio"]:
+            pass
+
 
 columna = leerColumna("../04. Forumularios digitalizados grupo 4.xlsx", 9, 8)
 
