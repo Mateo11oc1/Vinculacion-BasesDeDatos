@@ -2,6 +2,7 @@
 import pandas
 import math
 
+
 """Devuelve la columna como un diccionario de acuerdo a los parametros"""
 def leerColumna(archivo: str, hoja: int, columna: int):
     archivo = pandas.read_excel(archivo, sheet_name = hoja)
@@ -10,6 +11,19 @@ def leerColumna(archivo: str, hoja: int, columna: int):
     columna = {"atractor": lista[0], "numAtractores": lista[2], "tamanio": lista[3:6], "jornada": lista[6:11], "dias": lista[12:22]}
     return columna
 
+"""Validar que en caso de que la columna sea vacia, no se haga ninguna 
+validacion"""
+
+def validarColVacia(columna: dict):
+    try:
+        if math.isnan(columna["numAtractores"]) and math.isnan(sum(columna["tamanio"])) and math.isnan(sum(columna["jornada"])) and math.isnan(sum(columna["dias"])):
+            return True
+        else:
+            return False
+    except TypeError:
+        return False
+    
+    
 """validar que la suma de atractores no sea mayor o 
 menor al numero de atractores colocado"""
 def validarSuma(columna):
@@ -106,10 +120,12 @@ def validarNaN(columna: dict):
 
 
     #si el numero de atractores es nulo y el detalle no esta vacio
+    
     if math.isnan(columna["numAtractores"]) and not validarDetalle(columna):
         return False
     else:
         return True
+    
     
 
 """En caso de que el numero de atractores sea nulo, y hayan datos en las columnas de abajo
@@ -123,6 +139,7 @@ def corregirAtractoresNulos(columna: dict):
 columna = leerColumna("../04. Forumularios digitalizados grupo 4.xlsx", 9, 8)
 
 
+print(validarColVacia(columna))
 print(validarSuma(columna))
 print(validarCaracteres(columna))
 print(validarNaN(columna))
