@@ -120,10 +120,10 @@ def corregirAtractoresNulos(columna: dict):
             pass
 
 leido=pandas.read_excel("../04. Forumularios digitalizados grupo 4.xlsx", sheet_name=9)
-columna = leerColumna(leido, 8)
+columna = leerColumna(leido, 9)
 
 #se leera el excel con una libreria que permite escribir en el archivo .xlsx
-workbook=openpyxl.load_workbook("../04. Forumularios digitalizados grupo 4.xlsx")
+workbook = openpyxl.load_workbook("../04. Forumularios digitalizados grupo 4.xlsx")
 
 """print(validarSuma(columna))
 print(validarCaracteres(columna))
@@ -138,11 +138,11 @@ print(validarDiasNoSobrepaseAtractores(columna))"""
 numero de atractores totales, entonces se modifica el archivo desde el codigo en numero de atractores"""
 def modificarCampoNAtractores(columna: dict):
     #si el numero de atractores es nulo
-
-    if math.isnan(columna["numAtractores"]):
+    print("hola pata")
+    if math.isnan(columna["numAtractores"]) :
         hoja=workbook.worksheets[9]
         print(sum(x for x in columna['tamanio'] if not math.isnan(x)))
-        hoja.cell(row=1, column=9).value=sum(x for x in columna['tamanio'] if not math.isnan(x))
+        hoja.cell(row=11, column=10).value=sum(x for x in columna['tamanio'] if not math.isnan(x))
         workbook.save("../04. Forumularios digitalizados grupo 4.xlsx")
     else:
         return True
