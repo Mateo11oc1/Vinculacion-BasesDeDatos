@@ -104,7 +104,6 @@ def validarNaN(columna: dict):
                 else: 
                     return True
 
-
     #si el numero de atractores es nulo y el detalle no esta vacio
     if math.isnan(columna["numAtractores"]) and not validarDetalle(columna):
         return False
