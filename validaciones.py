@@ -30,11 +30,12 @@ class Validaciones:
             for j in leido.values():
                 #Recorro cada columna
                 for h in range(2, j.shape[1]):
+                    #Desde la columna 7 en adelante
                     lista = j.iloc[7:, h].tolist()
                     columna = {"atractor": lista[0], "numAtractores":lista[2], "tamanio": lista[3:6], "jornada": lista[6:11], "dias": lista[12:22], "numColumna": h, "hoja": numHoja}
                     lista1.append(columna)
-                    time.sleep(3)
                     print(columna)
+                    
                 numHoja += 1
 validaciones = Validaciones()
 validaciones.leerColumna()
