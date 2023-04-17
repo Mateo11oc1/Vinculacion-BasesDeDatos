@@ -138,10 +138,9 @@ print(validarDiasNoSobrepaseAtractores(columna))"""
 numero de atractores totales, entonces se modifica el archivo desde el codigo en numero de atractores"""
 def modificarCampoNAtractores(columna: dict):
     #si el numero de atractores es nulo
-    print("hola pata")
+
     if math.isnan(columna["numAtractores"]) :
         hoja=workbook.worksheets[9]
-        print(sum(x for x in columna['tamanio'] if not math.isnan(x)))
         hoja.cell(row=11, column=10).value=sum(x for x in columna['tamanio'] if not math.isnan(x))
         workbook.save("../04. Forumularios digitalizados grupo 4.xlsx")
     else:
@@ -149,5 +148,4 @@ def modificarCampoNAtractores(columna: dict):
 
 
 modificarCampoNAtractores(columna)
-
-
+ 
