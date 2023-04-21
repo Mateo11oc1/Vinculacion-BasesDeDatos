@@ -86,8 +86,8 @@ def validarExtremos(columna:dict):
                     return False
     return True
 
-"""Validar que en caso de haber datos en las filas inferiores
-, el campo de numero de atractores no sea nulo"""
+
+#Validar que en caso de haber datos en las filas inferiores, el campo de numero de atractores no sea nulo
 def validarNaN(columna: dict):
 #  Valida que el detalle, las filas desde el tamanio hacaia abajo no contengan datos
 
@@ -111,8 +111,8 @@ def validarNaN(columna: dict):
         return True
     
 
-"""En caso de que el numero de atractores sea nulo, y hayan datos en las columnas de abajo
-corregir sumando los datos del apartado tamanio"""
+#En caso de que el numero de atractores sea nulo, y hayan datos en las columnas de abajo
+#corregir sumando los datos del apartado tamanio
 def corregirAtractoresNulos(columna: dict):
     def verificarDatos(columna: dict):
         for i in columna["tamanio"]:
@@ -159,7 +159,21 @@ def corregirDiurno(columna: dict):
             hoja.cell(row = 16, column = columna["numColumna"] + 1).value = ""
             workbook.save("../04. Forumularios digitalizados grupo 4.xlsx")
 
+def validarTamanioDatosVacios(self, columna: dict) -> tuple(dict, bool):
+    
+    for i in columna["tamanio"]:
+        bandera = 0
+        #Si un elemento de los tamanios no esta vacio, no tiene este error
+        if not math.isnan(i):
+            bandera = 1
+            columna["listaErrores"][2] = False
+            return columna, False
 
-
+    #Si la bandera no cambia, significa que los datos de tamanio estan vacios
+    if bandera == 0:
+        columna["listaErrores"][2] = True
+        return columna, True   
+        
+        
 modificarCampoNAtractores(columna)
 corregirDiurno(columna)
