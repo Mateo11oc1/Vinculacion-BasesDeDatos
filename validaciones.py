@@ -40,7 +40,7 @@ class Validaciones:
                             "dias": lista[12:22], "numColumna": h, "hoja": numHoja, "archivo": i[3:], "vacia":False, "listaErrores":{}}
                     columna = self.validar(columna) #Se valida que la columna esta vacia al leer
                     print(f'---------\nArchivo: {columna["archivo"]}\n Hoja: {columna["hoja"]}\n Columna: {columna["numColumna"]}')
-                
+                     
                     if columna != None:
                         self.listaColumnas.append(columna)
 
@@ -135,7 +135,7 @@ class Validaciones:
             workbook = openpyxl.load_workbook("../" + columna["archivo"])
 
             hojaLeida = workbook.worksheets[columna["hoja"]]
-            hojaLeida.cell(row = 11, column = 7).value=sum(x for x in columna['tamanio'] if not math.isnan(x))
+            hojaLeida.cell(row = 11, column = columna["numColumna"]+1).value=sum(x for x in columna['tamanio'] if not math.isnan(x))
             
             workbook.save("../" + columna["archivo"])
 
