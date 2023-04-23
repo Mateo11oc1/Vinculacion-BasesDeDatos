@@ -70,11 +70,15 @@ class Validaciones:
     #Validar que solo sean numero y no letras
     def validarCaracteres(self, columna: dict) -> list:
         #si no es un numero entero
-    
 
+        if isinstance(columna["numAtractores"], str):
+            logging.error("Numero de atractores no es un entero")
+            columna["listaErrores"][1] = True
+            return [columna, True]
+            
         if isinstance(columna["numAtractores"], (float, str)):
             if isinstance(columna["numAtractores"], float) and not math.isnan(columna["numAtractores"]):
-     
+    
             #Esto reporta en consola como si fuera un error
                 logging.error("Numero de atractores no es un entero")
                 columna["listaErrores"][1] = True
@@ -130,8 +134,8 @@ class Validaciones:
         if math.isnan(columna["numAtractores"]):
             workbook = openpyxl.load_workbook("../" + columna["archivo"])
 
-            hojaLeida = workbook.worksheets[columna["numColumna"]]
-            hojaLeida.cell(row = 11, column = int(columna["numColumna"] + 1)).value=sum(x for x in columna['tamanio'] if not math.isnan(x))
+            hojaLeida = workbook.worksheets[columna["hoja"]]
+            hojaLeida.cell(row = 11, column = 7).value=sum(x for x in columna['tamanio'] if not math.isnan(x))
             
             workbook.save("../" + columna["archivo"])
 
@@ -184,7 +188,7 @@ class Validaciones:
 
             if not math.isnan(columna["jornada"][0]) and not math.isnan(columna["jornada"][1]) and columna["jornada"][0] == columna["numAtractores"] and columna["jornada"][1] == columna["numAtractores"]:
                 workbook = openpyxl.load_workbook("../" + columna["archivo"])
-                hojaLeida = workbook.worksheets[columna["numColumna"]]
+                hojaLeida = workbook.worksheets[columna["hoja"]]
                 hojaLeida.cell(row = 17, column = columna["numColumna"] + 1).value = columna["numAtractores"]
                 hojaLeida.cell(row = 15, column = columna["numColumna"] + 1).value = ""
                 hojaLeida.cell(row = 16, column = columna["numColumna"] + 1).value = ""
@@ -256,7 +260,7 @@ class Validaciones:
                     sumTamanio = self.validarSumaTamanio(tamanio[0])
                     caracteres[0] = sumTamanio[0]
                     self.modificarCampoNAtractores(sumTamanio[0])
-                   
+            
 
                 jornada = self.validarJornadaDatosVacios(caracteres[0])
                 if jornada[1]:
