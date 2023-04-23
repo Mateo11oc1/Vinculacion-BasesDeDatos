@@ -7,7 +7,6 @@ import logging
 import openpyxl
 #Las validaciones devuelve un valor de true si es que la columna presenta el error especificado, caso contrario, devuelve false
 class Validaciones:
-
     def __init__(self):
         self.carpetaExcel = "../"
         self.archivos_excel = self.leerCarpeta()
